@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="assets/img/wave.png" type="image/x-icon" />
+
+    <!--=============== BOXICONS ===============-->
+    <link
+      href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css" />
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+
+    <title>Complaint</title>
+  </head>
+  <body>
+    <!--=============== HEADER ===============-->
+    <header class="header" id="header">
+      <!-- <nav class="nav container">
+         <a href="" class="nav__logo"
+          >Form Pengecekan Laptop / Hardware Lainnya</a
+        >
+      </nav>-->
+    </header>
+
+    <!--=============== MAIN ===============-->
+    <main class="main">
+      <!--=============== CONTACT US ===============-->
+    <div>
+      <section class="contact section" id="contact">
+        <span class="section__subtitle"></span>
+        <h2 class="section__title"></h2>
+
+        <div class="contact__container container grid">
+          
+
+          <div class="contact__content">
+            <h3 class="contact__title">File Complaint</h3>
+
+            <form name="contact_ntoo" action="" class="contact__form">
+              <div class="contact__form-div">
+                <label for="" class="contact__form-tag">Name</label>
+                <input
+                  type="text"
+                  placeholder="Insert your Name"
+                  class="contact__form-input"
+                  name="nama"
+                  required
+                />
+              </div>
+
+              <div class="contact__form-div">
+                <label for="" class="contact__form-tag">Subject</label>
+                <input
+                  type="text"
+                  placeholder="Insert Subject"
+                  class="contact__form-input"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="contact__form-div">
+                <label for="" class="contact__form-tag">Address</label>
+                <input
+                  type="text"
+                  placeholder="Insert Address"
+                  class="contact__form-input"
+                  name="email"
+                  required
+                />
+              </div>
+
+              <div class="contact__form-div contact__form-area">
+                <label for="" class="contact__form-tag">Issues</label>
+                <textarea
+                  name="pesan"
+                  id=""
+                  cols="35"
+                  rows="50"
+                  class="contact__form-input"
+                  placeholder="Write your issues"
+                  required
+                ></textarea>
+              </div>
+              <button id="btn_send" type="submit" class="button">
+                Send Us Message
+              </button>
+              <button id="btn_loading" type="submit" class="button">
+                Please wait...
+              </button>
+              <br /><br />
+              <div>
+                <!-- <h2 class="section__title">
+                  Untuk laptop yang anti-virusnya belum diperbarui harap kontak
+                  IT Support segera.
+                </h2> -->
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    
+
+    <!--=============== SCROLLREVEAL ===============-->
+    <script src="assets/js/scrollreveal.min.js"></script>
+
+    <!--=============== SWIPER JS ===============-->
+    <script src="assets/js/swiper-bundle.min.js"></script>
+
+    <!--=============== MIXITUP FILTER ===============-->
+    <script src="assets/js/mixitup.min.js"></script>
+
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+
+    <script>
+      const btn_send = document.getElementById("btn_send");
+      const btn_loading = document.getElementById("btn_loading");
+      btn_loading.style.display = "none";
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbzGocESVSxlmSYliTzUO7kmyadyt6Ty4kepVZibbMmsqfxidmKFigWqAzNiP_7Vil4l/exec";
+      const form = document.forms["contact_ntoo"];
+      const alertNew = document.querySelector("alert");
+
+      form.addEventListener("submit", (e) => {
+        btn_send.style.display = "none";
+        btn_loading.style.display = "block";
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            btn_send.style.display = "block";
+            btn_loading.style.display = "none";
+            console.log("Success!", response);
+            Toastify({
+              text: `Complaint sent`,
+              duration: 2000,
+              className: "success",
+              style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+              },
+            }).showToast();
+            form.reset();
+          })
+          .catch((error) => {
+            btn_send.style.display = "block";
+            btn_loading.style.display = "none";
+            console.error("Error!", error.message);
+            Toastify({
+              text: `Error`,
+              duration: 2000,
+              className: "error",
+              style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+              },
+            }).showToast();
+          });
+      });
+    </script>
+  </body>
+</html>
